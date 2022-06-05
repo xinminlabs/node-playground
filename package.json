@@ -1,5 +1,5 @@
 {
-  "name": "synvert-playground",
+  "name": "node-query-playground",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -19,10 +19,6 @@ function App() {
     EXAMPLES[language][example].nql
   );
   const [astNode, setAstNode] = useState<any>({});
-  const [generateAstDisabled, setGenerateAstDisabled] =
-    useState<boolean>(false);
-  const [parseNqlDisabled, setParseNqlDisabled] =
-    useState<boolean>(false);
 
   const handleExampleChanged = useCallback(
     (example: string) => {
@@ -35,27 +31,20 @@ function App() {
 
   const generateAst = useCallback(async () => {
     if (sourceCode.length > 0) {
-      setGenerateAstDisabled(true);
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code: sourceCode }),
       };
-      try {
-        const url = requestUrl(language, "generate-ast");
-        const response = await fetch(url, requestOptions);
-        const data = await response.json();
-        setAstNode(data.node || data.error);
-        setGenerateAstDisabled(false);
-      } catch (e) {
-        setGenerateAstDisabled(false);
-      }
+      const url = requestUrl(language, "generate-ast");
+      const response = await fetch(url, requestOptions);
+      const data = await response.json();
+      setAstNode(data.node || data.error);
     }
   }, [language, sourceCode]);
 
   const parseNql = useCallback(async () => {
     if (sourceCode.length > 0 && nql.length > 0) {
-      setParseNqlDisabled(true);
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -64,14 +53,9 @@ function App() {
           nql,
         }),
       };
-      try {
-        const url = requestUrl(language, "parse-nql");
-        const response = await fetch(url, requestOptions);
-        const data = await response.json();
-        setParseNqlDisabled(false);
-      } catch (e) {
-        setParseNqlDisabled(false);
-      }
+      const url = requestUrl(language, "parse-nql");
+      const response = await fetch(url, requestOptions);
+      const data = await response.json();
     }
   }, [language, sourceCode, nql]);
 

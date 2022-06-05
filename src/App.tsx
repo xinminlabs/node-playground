@@ -3,7 +3,6 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { AstOutput } from "./AstOutput";
 import { CodeEditor } from "./CodeEditor";
-import { Button } from "./Button";
 import { REQUEST_BASE_URL, DEFAULT_EXAMPLE, EXAMPLES } from "./constants";
 
 const requestUrl = (language: string, action: string): string => {
@@ -11,25 +10,24 @@ const requestUrl = (language: string, action: string): string => {
 };
 
 function App() {
-  const language = window.location.pathname === "/ruby" ? "ruby" : "javascript";
+  const language = "typescript";
   const [example, setExample] = useState<string>(DEFAULT_EXAMPLE[language]);
   const [sourceCode, setSourceCode] = useState<string>(
     EXAMPLES[language][example].sourceCode
   );
-  const [snippetCode, setSnippetCode] = useState<string>(
-    EXAMPLES[language][example].snippet
+  const [nql, setNql] = useState<string>(
+    EXAMPLES[language][example].nql
   );
   const [astNode, setAstNode] = useState<any>({});
-  const [output, setOutput] = useState<string>("");
   const [generateAstDisabled, setGenerateAstDisabled] =
     useState<boolean>(false);
-  const [parseSynvertSnippetDisabled, setParseSynvertSnippetDisabled] =
+  const [parseNqlDisabled, setParseNqlDisabled] =
     useState<boolean>(false);
 
   const handleExampleChanged = useCallback(
     (example: string) => {
       setSourceCode(EXAMPLES[language][example].sourceCode);
-      setSnippetCode(EXAMPLES[language][example].snippet);
+      setNql(EXAMPLES[language][example].nql);
       setExample(example);
     },
     [language]
@@ -55,32 +53,31 @@ function App() {
     }
   }, [language, sourceCode]);
 
-  const parseSynvertSnippet = useCallback(async () => {
-    if (sourceCode.length > 0 && snippetCode.length > 0) {
-      setParseSynvertSnippetDisabled(true);
+  const parseNql = useCallback(async () => {
+    if (sourceCode.length > 0 && nql.length > 0) {
+      setParseNqlDisabled(true);
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           code: sourceCode,
-          snippet: snippetCode,
+          nql,
         }),
       };
       try {
-        const url = requestUrl(language, "parse-synvert-snippet");
+        const url = requestUrl(language, "parse-nql");
         const response = await fetch(url, requestOptions);
         const data = await response.json();
-        setOutput(data.output || data.error);
-        setParseSynvertSnippetDisabled(false);
+        setParseNqlDisabled(false);
       } catch (e) {
-        setParseSynvertSnippetDisabled(false);
+        setParseNqlDisabled(false);
       }
     }
-  }, [language, sourceCode, snippetCode]);
+  }, [language, sourceCode, nql]);
 
   useEffect(() => {
     const sendRequets = async () => {
-      await Promise.all([generateAst(), parseSynvertSnippet()]);
+      await Promise.all([generateAst(), parseNql()]);
     };
     sendRequets();
   }, [example]);
@@ -101,31 +98,15 @@ function App() {
             code={sourceCode}
             setCode={setSourceCode}
           />
-          <div className="font-bold flex items-center">Synvert Snippet:</div>
+          <div className="font-bold flex items-center">Node Query Language:</div>
           <CodeEditor
             language={language}
-            code={snippetCode}
-            setCode={setSnippetCode}
+            code={nql}
+            setCode={setNql}
           />
         </div>
-        <div className="w-2/12 px-2 py-14">
-          <div className="mx-auto flex flex-col space-y-4">
-            <Button
-              text="Generate AST"
-              onClick={generateAst}
-              disabled={generateAstDisabled}
-            />
-            <Button
-              text="Parse Snippet"
-              onClick={parseSynvertSnippet}
-              disabled={parseSynvertSnippetDisabled}
-            />
-          </div>
-        </div>
-        <div className="w-5/12 flex flex-col px-4">
+        <div className="w-5/12 px-4">
           <AstOutput code={astNode} />
-          <div className="font-bold flex items-center">Source Code:</div>
-          <CodeEditor language={language} code={output} readOnly />
         </div>
       </div>
       <Footer />

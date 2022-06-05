@@ -1,3 +1,4 @@
+import ts from "typescript";
 import { useCallback, useEffect, useState } from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
@@ -31,15 +32,8 @@ function App() {
 
   const generateAst = useCallback(async () => {
     if (sourceCode.length > 0) {
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: sourceCode }),
-      };
-      const url = requestUrl(language, "generate-ast");
-      const response = await fetch(url, requestOptions);
-      const data = await response.json();
-      setAstNode(data.node || data.error);
+      const node = ts.createSourceFile("code.ts", sourceCode, ts.ScriptTarget.Latest, false);
+      setAstNode(node);
     }
   }, [language, sourceCode]);
 
@@ -56,6 +50,7 @@ function App() {
       const url = requestUrl(language, "parse-nql");
       const response = await fetch(url, requestOptions);
       const data = await response.json();
+      console.log(data)
     }
   }, [language, sourceCode, nql]);
 

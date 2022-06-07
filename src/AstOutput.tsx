@@ -11,7 +11,7 @@ export const AstOutput: React.FC<AstOutputProps> = ({ code }) => {
         src={code}
         theme="twilight"
         displayDataTypes={false}
-        style={{ width: "100%", height: "400px", overflowY: "scroll" }}
+        style={{ width: "100%", height: "824px", overflowY: "scroll" }}
       />
     </>
   );

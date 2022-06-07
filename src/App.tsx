@@ -70,7 +70,7 @@ function App() {
         handleExampleChanged={handleExampleChanged}
       />
       <div className="flex mt-4">
-        <div className="w-5/12 flex flex-col px-4">
+        <div className="w-1/2 flex flex-col px-4">
           <div className="font-bold flex items-center">Source Code:</div>
           <CodeEditor
             language={language}
@@ -84,7 +84,7 @@ function App() {
             setCode={setNql}
           />
         </div>
-        <div className="w-5/12 px-4">
+        <div className="w-1/2 px-4">
           <AstOutput code={astNode} />
         </div>
       </div>

@@ -3,7 +3,8 @@ import { useCallback, useEffect, useState } from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { AstOutput } from "./AstOutput";
-import { CodeEditor } from "./CodeEditor";
+import { SourceCodeInput } from "./SourceCodeInput";
+import { NodeQueryInput } from "./NodeQueryInput";
 import { REQUEST_BASE_URL, DEFAULT_EXAMPLE, EXAMPLES } from "./constants";
 
 const requestUrl = (language: string, action: string): string => {
@@ -72,14 +73,13 @@ function App() {
       <div className="flex mt-4">
         <div className="w-1/2 flex flex-col px-4">
           <div className="font-bold flex items-center">Source Code:</div>
-          <CodeEditor
+          <SourceCodeInput
             language={language}
             code={sourceCode}
             setCode={setSourceCode}
           />
           <div className="font-bold flex items-center">Node Query Language:</div>
-          <CodeEditor
-            language={language}
+          <NodeQueryInput
             code={nql}
             setCode={setNql}
           />

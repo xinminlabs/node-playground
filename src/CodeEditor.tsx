@@ -1,8 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { useCodeMirror } from "@uiw/react-codemirror";
-import { StreamLanguage } from "@codemirror/language";
-import { javascript } from "@codemirror/lang-javascript";
-import { ruby } from "@codemirror/legacy-modes/mode/ruby";
+import React from "react";
+import MonacoEditor from 'react-monaco-editor';
 
 interface CodeEditorProps {
   language: string;
@@ -15,27 +12,16 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   language,
   code,
   setCode,
-  readOnly,
 }) => {
-  const editor = useRef() as React.MutableRefObject<HTMLInputElement>;
-  const { setContainer } = useCodeMirror({
-    container: editor.current,
-    extensions:
-      language === "javascript"
-        ? [javascript({ jsx: true })]
-        : [StreamLanguage.define(ruby)],
-    height: "400px",
-    theme: "dark",
-    value: code,
-    onChange: setCode,
-    readOnly: readOnly,
-  });
+  const options = {
+    selectOnLineNumbers: true
+  };
 
-  useEffect(() => {
-    if (editor.current) {
-      setContainer(editor.current);
-    }
-  }, [editor.current]);
-
-  return <div ref={editor} />;
+  return <MonacoEditor
+    language="typescript"
+    theme="vs-dark"
+    value={code}
+    options={options}
+    onChange={setCode}
+  />
 };

@@ -1,14 +1,15 @@
+import { Node } from "typescript";
 import ReactJson from "react-json-view";
 interface AstOutputProps {
-  code: object;
+  node?: Node;
 }
 
-export const AstOutput: React.FC<AstOutputProps> = ({ code }) => {
+export const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
   return (
     <>
       <div className="font-bold flex items-center">AST Node:</div>
       <ReactJson
-        src={code}
+        src={node || {}}
         theme="twilight"
         displayDataTypes={false}
         style={{ width: "100%", height: "824px", overflowY: "scroll" }}

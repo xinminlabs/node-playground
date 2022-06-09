@@ -1,4 +1,4 @@
-import ts from "typescript";
+import { createSourceFile, Node, ScriptTarget } from "typescript";
 import { useCallback, useEffect, useState } from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
@@ -20,7 +20,7 @@ function App() {
   const [nql, setNql] = useState<string>(
     EXAMPLES[language][example].nql
   );
-  const [astNode, setAstNode] = useState<any>({});
+  const [astNode, setAstNode] = useState<Node>();
 
   const handleExampleChanged = useCallback(
     (example: string) => {
@@ -33,7 +33,7 @@ function App() {
 
   const generateAst = useCallback(async () => {
     if (sourceCode.length > 0) {
-      const node = ts.createSourceFile("code.ts", sourceCode, ts.ScriptTarget.Latest, false);
+      const node = createSourceFile("code.ts", sourceCode, ScriptTarget.Latest, false);
       setAstNode(node);
     }
   }, [language, sourceCode]);
@@ -85,7 +85,7 @@ function App() {
           />
         </div>
         <div className="w-1/2 px-4">
-          <AstOutput code={astNode} />
+          <AstOutput node={astNode} />
         </div>
       </div>
       <Footer />

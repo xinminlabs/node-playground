@@ -54,7 +54,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <option key={language}>{language}</option>
               ))}
             </select>
-            <span className="ml-5">Snippets:&nbsp;&nbsp;</span>
+            <span className="ml-5">Examples:&nbsp;&nbsp;</span>
             <select
               value={example}
               className="px-3 py-1.5 text-gray-700 border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:border-blue-600 focus:outline-none"
@@ -64,14 +64,6 @@ export const Header: React.FC<HeaderProps> = ({
                 <option key={example}>{example}</option>
               ))}
             </select>
-            <a
-              className="ml-5"
-              href={offliceSnippetsUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              More Snippets
-            </a>
           </div>
         </div>
       </div>

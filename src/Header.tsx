@@ -41,7 +41,7 @@ export const Header: React.FC<HeaderProps> = ({
             <span>Github</span>
           </a>
           <div>
-            <span>Languages:&nbsp;&nbsp;</span>
+            {/* <span>Languages:&nbsp;&nbsp;</span>
             <select
               value={language}
               className="px-3 py-1.5 text-gray-700 border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:border-blue-600 focus:outline-none"
@@ -50,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({
               {LANGUAGES.map((language) => (
                 <option key={language}>{language}</option>
               ))}
-            </select>
+            </select> */}
             <span className="ml-5">Examples:&nbsp;&nbsp;</span>
             <select
               value={example}

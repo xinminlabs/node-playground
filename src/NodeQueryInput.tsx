@@ -27,6 +27,10 @@ export const NodeQueryInput: React.FC<NodeQueryInputProps> = ({
   }
 
   useEffect(() => {
+    setValue(code);
+  }, [code]);
+
+  useEffect(() => {
     const timeoutId = setTimeout(() => setCode(value), 1000);
     return () => clearTimeout(timeoutId);
   }, [value]);

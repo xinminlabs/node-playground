@@ -41,6 +41,10 @@ export const SourceCodeInput: React.FC<SourceCodeInputProps> = ({
   };
 
   useEffect(() => {
+    setValue(code);
+  }, [code]);
+
+  useEffect(() => {
     const timeoutId = setTimeout(() => setCode(value), 1000);
     return () => clearTimeout(timeoutId);
   }, [value]);

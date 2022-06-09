@@ -41,7 +41,7 @@ function App() {
     }
   }, [language, sourceCode]);
 
-  const parseNql = useCallback(async () => {
+  const parseNql = useCallback(() => {
     if (sourceCode.length > 0 && nql.length > 0) {
       const requestOptions = {
         method: "POST",
@@ -52,18 +52,17 @@ function App() {
         }),
       };
       const url = requestUrl(language, "parse-nql");
-      const response = await fetch(url, requestOptions);
-      const data = await response.json();
-      setRanges(data.ranges);
+      fetch(url, requestOptions).then((response) => {
+        response.json().then((data) => {
+          setRanges(data.ranges);
+        });
+      });
     }
   }, [language, sourceCode, nql]);
 
   useEffect(() => {
-    const sendRequets = async () => {
-      generateAst();
-      await parseNql();
-    };
-    sendRequets();
+    generateAst();
+    parseNql();
   }, [example, sourceCode, nql]);
 
   return (

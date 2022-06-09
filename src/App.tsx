@@ -1,5 +1,7 @@
 import { createSourceFile, Node, ScriptTarget } from "typescript";
 import { useCallback, useEffect, useState } from "react";
+
+import type { Range } from "./types";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { AstOutput } from "./AstOutput";
@@ -21,6 +23,7 @@ function App() {
     EXAMPLES[language][example].nql
   );
   const [astNode, setAstNode] = useState<Node>();
+  const [ranges, setRanges] = useState<Range[]>([]);
 
   const handleExampleChanged = useCallback(
     (example: string) => {
@@ -51,7 +54,7 @@ function App() {
       const url = requestUrl(language, "parse-nql");
       const response = await fetch(url, requestOptions);
       const data = await response.json();
-      console.log(data)
+      setRanges(data.ranges);
     }
   }, [language, sourceCode, nql]);
 
@@ -74,8 +77,9 @@ function App() {
         <div className="w-1/2 flex flex-col px-4">
           <div className="font-bold flex items-center">Source Code:</div>
           <SourceCodeInput
-            language={language}
             code={sourceCode}
+            language={language}
+            ranges={ranges}
             setCode={setSourceCode}
           />
           <div className="font-bold flex items-center">Node Query Language:</div>

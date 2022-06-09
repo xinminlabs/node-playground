@@ -34,7 +34,7 @@ function App() {
     [language]
   );
 
-  const generateAst = useCallback(async () => {
+  const generateAst = useCallback(() => {
     if (sourceCode.length > 0) {
       const node = createSourceFile("code.ts", sourceCode, ScriptTarget.Latest, false);
       setAstNode(node);
@@ -60,10 +60,11 @@ function App() {
 
   useEffect(() => {
     const sendRequets = async () => {
-      await Promise.all([generateAst(), parseNql()]);
+      generateAst();
+      await parseNql();
     };
     sendRequets();
-  }, [example]);
+  }, [example, sourceCode, nql]);
 
   return (
     <>

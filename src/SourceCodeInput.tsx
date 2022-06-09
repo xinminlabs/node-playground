@@ -11,8 +11,6 @@ interface SourceCodeInputProps {
   setCode: (code: string) => void;
 }
 
-type Monaco = typeof monaco
-
 let editorRef: monaco.editor.IStandaloneCodeEditor;
 
 const options = {
@@ -33,6 +31,8 @@ export const SourceCodeInput: React.FC<SourceCodeInputProps> = ({
   setCode,
 }) => {
   const [value, setValue] = useState<string>(code)
+  const [decorationIds, setDecorationIds] = useState<string[]>([]);
+
   const onChange = (val: string) => {
     setValue(val);
   }
@@ -46,15 +46,19 @@ export const SourceCodeInput: React.FC<SourceCodeInputProps> = ({
   }, [value]);
 
   useEffect(() => {
-    if (editorRef && ranges.length > 0) {
-      editorRef.deltaDecorations(
-        [],
-        ranges.map((range) => ({
-          range: new monaco.Range(range.start.line, range.start.column, range.end.line, range.end.column + 1),
-          options: { inlineClassName: 'bg-cyan-800' }
-        }))
-      );
+    if (!editorRef || ranges.length === 0) {
+      return;
     }
+
+    const ids = editorRef.deltaDecorations(
+      decorationIds,
+      ranges.map((range) => ({
+        range: new monaco.Range(range.start.line, range.start.column, range.end.line, range.end.column + 1),
+        options: { inlineClassName: 'bg-cyan-800' }
+      }))
+    );
+    setDecorationIds(ids);
+    return () => { editorRef.deltaDecorations(ids, []) };
   }, [ranges])
 
 

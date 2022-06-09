@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import MonacoEditor from 'react-monaco-editor';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 
@@ -8,12 +8,23 @@ interface SourceCodeInputProps {
   code: string;
   language: string;
   ranges: Range[],
-  setCode?: (code: string) => void;
+  setCode: (code: string) => void;
 }
 
 type Monaco = typeof monaco
 
 let editorRef: monaco.editor.IStandaloneCodeEditor;
+
+const options = {
+  automaticLayout: false,
+  codeLens: false,
+  minimap: { enabled: false },
+  occurrencesHighlight: false,
+  quickSuggestions: false,
+  scrollBeyondLastLine: true,
+  selectionHighlight: false,
+  suggestOnTriggerCharacters: false,
+};
 
 export const SourceCodeInput: React.FC<SourceCodeInputProps> = ({
   code,
@@ -21,23 +32,21 @@ export const SourceCodeInput: React.FC<SourceCodeInputProps> = ({
   ranges,
   setCode,
 }) => {
-  const options = {
-    automaticLayout: false,
-    codeLens: false,
-    minimap: { enabled: false },
-    occurrencesHighlight: false,
-    quickSuggestions: false,
-    scrollBeyondLastLine: true,
-    selectionHighlight: false,
-    suggestOnTriggerCharacters: false,
-  };
-
-  const editorDidMount = (editor: monaco.editor.IStandaloneCodeEditor, monaco: Monaco) => {
+  const [value, setValue] = useState<string>(code)
+  const onChange = (val: string) => {
+    setValue(val);
+  }
+  const editorDidMount = (editor: monaco.editor.IStandaloneCodeEditor) => {
     editorRef = editor;
   };
 
   useEffect(() => {
-    if (ranges.length > 0) {
+    const timeoutId = setTimeout(() => setCode(value), 1000);
+    return () => clearTimeout(timeoutId);
+  }, [value]);
+
+  useEffect(() => {
+    if (editorRef && ranges.length > 0) {
       editorRef.deltaDecorations(
         [],
         ranges.map((range) => ({
@@ -52,9 +61,9 @@ export const SourceCodeInput: React.FC<SourceCodeInputProps> = ({
   return <MonacoEditor
     editorDidMount={editorDidMount}
     language={language}
-    onChange={setCode}
+    onChange={onChange}
     options={options}
     theme="vs-dark"
-    value={code}
+    value={value}
   />
 };

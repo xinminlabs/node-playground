@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MonacoEditor from 'react-monaco-editor';
 
 interface NodeQueryInputProps {
@@ -6,26 +6,36 @@ interface NodeQueryInputProps {
   setCode: (code: string) => void;
 }
 
+const options = {
+  automaticLayout: false,
+  codeLens: false,
+  minimap: { enabled: false },
+  occurrencesHighlight: false,
+  quickSuggestions: false,
+  scrollBeyondLastLine: true,
+  selectionHighlight: false,
+  suggestOnTriggerCharacters: false,
+};
+
 export const NodeQueryInput: React.FC<NodeQueryInputProps> = ({
   code,
   setCode,
 }) => {
-  const options = {
-    automaticLayout: false,
-    codeLens: false,
-    minimap: { enabled: false },
-    occurrencesHighlight: false,
-    quickSuggestions: false,
-    scrollBeyondLastLine: true,
-    selectionHighlight: false,
-    suggestOnTriggerCharacters: false,
-  };
+  const [value, setValue] = useState<string>(code)
+  const onChange = (val: string) => {
+    setValue(val);
+  }
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => setCode(value), 1000);
+    return () => clearTimeout(timeoutId);
+  }, [value]);
 
   return <MonacoEditor
     language="text"
-    theme="vs-dark"
-    value={code}
+    onChange={onChange}
     options={options}
-    onChange={setCode}
+    theme="vs-dark"
+    value={value}
   />
 };

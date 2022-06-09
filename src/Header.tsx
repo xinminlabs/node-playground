@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./logo.png";
 import { LANGUAGES } from "./constants";
 
 interface HeaderProps {
@@ -15,8 +14,7 @@ export const Header: React.FC<HeaderProps> = ({
   examples,
   handleExampleChanged,
 }) => {
-  const homeUrl = `https://synvert.xinminlabs.com/${language}/home`;
-  const offliceSnippetsUrl = `https://synvert.xinminlabs.com/${language}/official_snippets/`;
+  const homeUrl = `https://github.com/xinminlabs/node-query-javascript`;
 
   const handleLanguageChange = (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -40,8 +38,7 @@ export const Header: React.FC<HeaderProps> = ({
             target="_blank"
             rel="noreferrer"
           >
-            <img className="w-8 h-8 mr-2" src={logo} alt="Logo" />
-            <span>Home</span>
+            <span>Github</span>
           </a>
           <div>
             <span>Languages:&nbsp;&nbsp;</span>

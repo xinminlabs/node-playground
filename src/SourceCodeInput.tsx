@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import MonacoEditor from 'react-monaco-editor';
-import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import MonacoEditor, { monaco } from 'react-monaco-editor';
 
 import type { Range } from "./types";
 
@@ -64,7 +63,7 @@ export const SourceCodeInput: React.FC<SourceCodeInputProps> = ({
     const ids = editorRef.deltaDecorations(
       decorationIds,
       ranges.map((range) => ({
-        range: new monaco.Range(range.start.line, range.start.column, range.end.line, range.end.column + 1),
+        range: new monaco.Range(range.start.line, range.start.column, range.end.line, range.end.column),
         options: { inlineClassName: 'bg-cyan-800' }
       }))
     );

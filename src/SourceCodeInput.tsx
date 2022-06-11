@@ -11,6 +11,8 @@ interface SourceCodeInputProps {
   setCode: (code: string) => void;
 }
 
+type Monaco = typeof monaco;
+
 let editorRef: monaco.editor.IStandaloneCodeEditor;
 
 const options = {
@@ -36,8 +38,13 @@ export const SourceCodeInput: React.FC<SourceCodeInputProps> = ({
   const onChange = (val: string) => {
     setValue(val);
   }
-  const editorDidMount = (editor: monaco.editor.IStandaloneCodeEditor) => {
+  const editorDidMount = (editor: monaco.editor.IStandaloneCodeEditor, monaco: Monaco) => {
     editorRef = editor;
+    monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+      noSemanticValidation: true,
+      noSyntaxValidation: true,
+      noSuggestionDiagnostics: true,
+    });
   };
 
   useEffect(() => {

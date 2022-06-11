@@ -34,14 +34,21 @@ function App() {
     [language]
   );
 
-  const generateAst = useCallback(() => {
-    if (sourceCode.length > 0) {
-      const node = createSourceFile("code.ts", sourceCode, ScriptTarget.Latest, false);
-      setAstNode(node);
+  const getFilePath = useCallback(() => {
+    const node = createSourceFile("code.ts", sourceCode, ScriptTarget.Latest, false);
+    if ((node as any)['parseDiagnostics'].length > 0) {
+      return "code.tsx";
+    } else {
+      return "code.ts";
     }
+  }, [sourceCode]);
+
+  const generateAst = useCallback((path: string) => {
+    const node = createSourceFile(path, sourceCode, ScriptTarget.Latest, false);
+    setAstNode(node);
   }, [language, sourceCode]);
 
-  const parseNql = useCallback(() => {
+  const parseNql = useCallback((path: string) => {
     if (sourceCode.length > 0 && nql.length > 0) {
       const requestOptions = {
         method: "POST",
@@ -49,6 +56,7 @@ function App() {
         body: JSON.stringify({
           code: sourceCode,
           nql,
+          path,
         }),
       };
       const url = requestUrl(language, "parse-nql");
@@ -61,8 +69,9 @@ function App() {
   }, [language, sourceCode, nql]);
 
   useEffect(() => {
-    generateAst();
-    parseNql();
+    const path = getFilePath();
+    generateAst(path);
+    parseNql(path);
   }, [example, sourceCode, nql]);
 
   return (

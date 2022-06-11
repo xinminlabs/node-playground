@@ -35,6 +35,18 @@ export const SOURCES = {
     }
 
     const user: User = new UserAccount("Murphy", 1, true);
+  `,
+  typescript_jsx: dedent`
+    class Button extends Component {
+      render() {
+        return (
+          <Fragment>
+            <div className="foo" />
+            <div className="bar" />
+          </Fragment>
+        )
+      }
+    }
   `
 };
 export const DEFAULT_EXAMPLE: { [language: string]: string } = {
@@ -159,8 +171,8 @@ export const EXAMPLES: Examples = {
       nql: ".ClassDeclaration:not_has(.Constructor)",
     },
     "multiple expressions": {
-      sourceCode: SOURCES["typescript"],
-      nql: ".JSXOpeningElement[name=Fragment], .JSXClosingElement[name=Fragment]",
+      sourceCode: SOURCES["typescript_jsx"],
+      nql: ".JsxOpeningElement > .Identifier[escapedText=Fragment], .JsxClosingElement > .Identifier[escapedText=Fragment]",
     },
   },
 };

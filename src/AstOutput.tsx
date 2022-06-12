@@ -14,7 +14,6 @@ const ROOT_KEYS = [
 const IGNORE_KEYS = [
   // "decorators",
   "flags",
-  "kind",
   // "locals",
   // "localSymbol",
   "modifierFlagsCache",
@@ -53,6 +52,9 @@ const getNodeObject = (node: Node): any => {
     if (!IGNORE_KEYS.includes(key)) {
       const [newKey, value] = getNewKeyValue(node, key);
       result[newKey] = value;
+      if (key === "kind") {
+        result["type"] = SyntaxKind[value];
+      }
     }
   });
   return result;

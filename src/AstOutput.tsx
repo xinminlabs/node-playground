@@ -30,11 +30,7 @@ const IGNORE_KEYS = [
 const getNewKeyValue = (node: Node, key: string): [key: string, value: any] => {
   const value = (node as any)[key]
   if (typeof value === "object") {
-    if (value.kind) {
-      return [SyntaxKind[value.kind], getNodeObject(value)];
-    } else {
-      return [key, getNodeObject(value)];
-    }
+    return [key, getNodeObject(value)];
   } else {
     return [key, value];
   }

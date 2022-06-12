@@ -53,7 +53,7 @@ const getNodeObject = (node: Node): any => {
       const [newKey, value] = getNewKeyValue(node, key);
       result[newKey] = value;
       if (key === "kind") {
-        result["type"] = SyntaxKind[value];
+        result["nodeType"] = SyntaxKind[value];
       }
     }
   });

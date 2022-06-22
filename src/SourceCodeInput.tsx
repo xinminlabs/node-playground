@@ -56,7 +56,7 @@ export const SourceCodeInput: React.FC<SourceCodeInputProps> = ({
   }, [value]);
 
   useEffect(() => {
-    if (!editorRef || ranges.length === 0) {
+    if (!editorRef || (!ranges || ranges.length === 0)) {
       return;
     }
 

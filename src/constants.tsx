@@ -14,7 +14,7 @@ export const REQUEST_BASE_URL: { [language: string]: string } = {
   ruby:
     process.env.REACT_APP_RUBY_BASE_URL || "http://localhost:9292",
   typescript:
-    process.env.REACT_APP_JAVSCRIPT_BASE_URL || "http://localhost:3000",
+    process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:3000",
 };
 export const SOURCES = {
   typescript: dedent`

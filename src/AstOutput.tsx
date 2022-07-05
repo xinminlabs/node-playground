@@ -1,6 +1,7 @@
 import { Node, SyntaxKind } from "typescript";
 import ReactJson from "react-json-view";
 interface AstOutputProps {
+  language: string;
   node?: Node;
 }
 
@@ -35,7 +36,10 @@ const getNewKeyValue = (node: Node, key: string): [key: string, value: any] => {
   }
 }
 
-const getRootObject = (node: Node): any => {
+const getRootObject = (language: string, node: Node): any => {
+  if (language !== "typescript") {
+    return node;
+  }
   const result: { [index: string]: any } = {};
   Object.keys(node).forEach((key) => {
     if (ROOT_KEYS.includes(key)) {
@@ -60,8 +64,8 @@ const getNodeObject = (node: Node): any => {
   return result;
 }
 
-export const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
-  const src = node ? getRootObject(node) : {};
+export const AstOutput: React.FC<AstOutputProps> = ({ language, node }) => {
+  const src = node ? getRootObject(language, node) : {};
   return (
     <>
       <div className="font-bold flex items-center">AST Node:</div>

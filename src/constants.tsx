@@ -5,14 +5,13 @@ interface Examples {
     [name: string]: {
       sourceCode: string;
       nql: string;
-    }
+    };
   };
 }
 
 export const LANGUAGES = ["ruby", "typescript"];
 export const REQUEST_BASE_URL: { [language: string]: string } = {
-  ruby:
-    process.env.REACT_APP_RUBY_BASE_URL || "http://localhost:9292",
+  ruby: process.env.REACT_APP_RUBY_BASE_URL || "http://localhost:9292",
   typescript:
     process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:3000",
 };
@@ -80,7 +79,7 @@ export const EXAMPLES: Examples = {
       sourceCode: SOURCES["typescript"],
       nql: ".ClassDeclaration",
     },
-    "attributes": {
+    attributes: {
       sourceCode: SOURCES["typescript"],
       nql: ".NewExpression[expression=UserAccount]",
     },
@@ -90,7 +89,7 @@ export const EXAMPLES: Examples = {
     },
     "nested attribute": {
       sourceCode: SOURCES["typescript"],
-      nql: ".NewExpression[expression.escapedText=UserAccount]"
+      nql: ".NewExpression[expression.escapedText=UserAccount]",
     },
     "evaluated value": {
       sourceCode: SOURCES["typescript"],
@@ -100,7 +99,7 @@ export const EXAMPLES: Examples = {
       sourceCode: SOURCES["typescript"],
       nql: ".VariableDeclaration[initializer=.NewExpression[expression=UserAccount]]",
     },
-    "property": {
+    property: {
       sourceCode: SOURCES["typescript"],
       nql: ".NewExpression[arguments.length=2]",
     },
@@ -202,7 +201,7 @@ export const EXAMPLES: Examples = {
       sourceCode: SOURCES["ruby"],
       nql: ".def",
     },
-    "attributes": {
+    attributes: {
       sourceCode: SOURCES["ruby"],
       nql: ".class[name=Synvert]",
     },
@@ -222,7 +221,7 @@ export const EXAMPLES: Examples = {
       sourceCode: SOURCES["ruby"],
       nql: ".send[receiver=.const[name=FactoryBot]]",
     },
-    "property": {
+    property: {
       sourceCode: SOURCES["ruby"],
       nql: ".def[arguments.size=2]",
     },

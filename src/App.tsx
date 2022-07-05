@@ -19,9 +19,7 @@ function App() {
   const [sourceCode, setSourceCode] = useState<string>(
     EXAMPLES[language][example].sourceCode
   );
-  const [nql, setNql] = useState<string>(
-    EXAMPLES[language][example].nql
-  );
+  const [nql, setNql] = useState<string>(EXAMPLES[language][example].nql);
   const [astNode, setAstNode] = useState<Node>();
   const [ranges, setRanges] = useState<Range[]>([]);
 
@@ -35,61 +33,77 @@ function App() {
   );
 
   const getFilePath = useCallback(() => {
-    const node = createSourceFile("code.ts", sourceCode, ScriptTarget.Latest, false);
-    if ((node as any)['parseDiagnostics'].length > 0) {
+    const node = createSourceFile(
+      "code.ts",
+      sourceCode,
+      ScriptTarget.Latest,
+      false
+    );
+    if ((node as any)["parseDiagnostics"].length > 0) {
       return "code.tsx";
     } else {
       return "code.ts";
     }
   }, [sourceCode]);
 
-  const generateAst = useCallback((path: string) => {
-    if (sourceCode.length === 0) {
-      return;
-    }
+  const generateAst = useCallback(
+    (path: string) => {
+      if (sourceCode.length === 0) {
+        return;
+      }
 
-    if (language === "typescript") {
-      const node = createSourceFile(path, sourceCode, ScriptTarget.Latest, false);
-      setAstNode(node);
-    } else {
+      if (language === "typescript") {
+        const node = createSourceFile(
+          path,
+          sourceCode,
+          ScriptTarget.Latest,
+          false
+        );
+        setAstNode(node);
+      } else {
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            code: sourceCode,
+            path,
+          }),
+        };
+        const url = requestUrl(language, "generate-ast");
+        fetch(url, requestOptions).then((response) => {
+          response.json().then((data) => {
+            setAstNode(data.node);
+          });
+        });
+      }
+    },
+    [language, sourceCode]
+  );
+
+  const parseNql = useCallback(
+    (path: string) => {
+      if (sourceCode.length === 0 || nql.length === 0) {
+        return;
+      }
+
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           code: sourceCode,
+          nql,
           path,
         }),
       };
-      const url = requestUrl(language, "generate-ast");
+      const url = requestUrl(language, "parse-nql");
       fetch(url, requestOptions).then((response) => {
         response.json().then((data) => {
-          setAstNode(data.node);
+          setRanges(data.ranges);
         });
       });
-    }
-  }, [language, sourceCode]);
-
-  const parseNql = useCallback((path: string) => {
-    if (sourceCode.length === 0 || nql.length === 0) {
-      return;
-    }
-
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        code: sourceCode,
-        nql,
-        path,
-      }),
-    };
-    const url = requestUrl(language, "parse-nql");
-    fetch(url, requestOptions).then((response) => {
-      response.json().then((data) => {
-        setRanges(data.ranges);
-      });
-    });
-  }, [language, sourceCode, nql]);
+    },
+    [language, sourceCode, nql]
+  );
 
   useEffect(() => {
     const path = getFilePath();
@@ -114,11 +128,10 @@ function App() {
             ranges={ranges}
             setCode={setSourceCode}
           />
-          <div className="font-bold flex items-center">Node Query Language:</div>
-          <NodeQueryInput
-            code={nql}
-            setCode={setNql}
-          />
+          <div className="font-bold flex items-center">
+            Node Query Language:
+          </div>
+          <NodeQueryInput code={nql} setCode={setNql} />
         </div>
         <div className="w-1/2 px-4">
           <AstOutput language={language} node={astNode} />

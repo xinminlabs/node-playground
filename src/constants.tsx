@@ -9,15 +9,15 @@ interface Examples {
   };
 }
 
-export const LANGUAGES = ["ruby", "javascript"];
+export const LANGUAGES = ["ruby", "typescript"];
 export const REQUEST_BASE_URL: { [language: string]: string } = {
   ruby:
     process.env.REACT_APP_RUBY_BASE_URL || "http://localhost:9292",
-  javascript:
-    process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:3000",
+  typescript:
+    process.env.REACT_APP_JAVSCRIPT_BASE_URL || "http://localhost:3000",
 };
 export const SOURCES = {
-  javascript: dedent`
+  typescript: dedent`
     interface User {
       name: string;
       id: number;
@@ -38,7 +38,7 @@ export const SOURCES = {
 
     const user: User = new UserAccount("Murphy", 1, true);
   `,
-  javascript_jsx: dedent`
+  typescript_jsx: dedent`
     class Button extends Component {
       render() {
         return (
@@ -71,129 +71,129 @@ export const SOURCES = {
   `,
 };
 export const DEFAULT_EXAMPLE: { [language: string]: string } = {
-  javascript: "node type",
+  typescript: "node type",
   ruby: "node type",
 };
 export const EXAMPLES: Examples = {
-  javascript: {
+  typescript: {
     "node type": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".ClassDeclaration",
     },
     "attributes": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".NewExpression[expression=UserAccount]",
     },
     "multiple attributes": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: '.NewExpression[arguments.0="Murphy"][arguments.1=1]',
     },
     "nested attribute": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".NewExpression[expression.escapedText=UserAccount]"
     },
     "evaluated value": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".PropertyAssignment[name={{initializer}}]",
     },
     "nested selector": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".VariableDeclaration[initializer=.NewExpression[expression=UserAccount]]",
     },
     "property": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".NewExpression[arguments.length=2]",
     },
     "operator =": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".NewExpression[expression=UserAccount]",
     },
     "operator ^=": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".NewExpression[expression^=User]",
     },
     "operator $=": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".NewExpression[expression$=Account]",
     },
     "operator *=": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".NewExpression[expression*=Acc]",
     },
     "operator !=": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".NewExpression[arguments.length!=0]",
     },
     "operator >=": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".NewExpression[arguments.length>=2]",
     },
     "operator >": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".NewExpression[arguments.length>1]",
     },
     "operator <=": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".NewExpression[arguments.length<=2]",
     },
     "operator <": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".NewExpression[arguments.length<3]",
     },
     "operator IN": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".ClassDeclaration[name IN (User Account UserAccount)]",
     },
     "operator NOT IN": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".ClassDeclaration[name NOT IN (User Account)]",
     },
     "operator =~": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".ClassDeclaration[name=~/^User/]",
     },
     "operator !~": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".ClassDeclaration[name!~/^User/]",
     },
     "multiple nodes attribute": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: '.NewExpression[arguments=("Murphy" 1)]',
     },
     "* in attribute key": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".Constructor[parameters.*.name IN (name id)]",
     },
     "descendant combinator": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".ClassDeclaration .Constructor",
     },
     "child combinator": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".ClassDeclaration > .PropertyDeclaration",
     },
     "adjacent sibling combinator": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".PropertyDeclaration[name=name] + .PropertyDeclaration",
     },
     "general sibling combinator": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".PropertyDeclaration[name=name] ~ .PropertyDeclaration",
     },
     "goto scope": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".ClassDeclaration members .PropertyDeclaration",
     },
     ":has pseudo selector": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".ClassDeclaration:has(.Constructor)",
     },
     ":not_has pseudo selector": {
-      sourceCode: SOURCES["javascript"],
+      sourceCode: SOURCES["typescript"],
       nql: ".ClassDeclaration:not_has(.Constructor)",
     },
     "multiple expressions": {
-      sourceCode: SOURCES["javascript_jsx"],
+      sourceCode: SOURCES["typescript_jsx"],
       nql: ".JsxOpeningElement > .Identifier[escapedText=Fragment], .JsxClosingElement > .Identifier[escapedText=Fragment]",
     },
   },

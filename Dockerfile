@@ -3,8 +3,8 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 COPY . ./
-ENV REACT_APP_RUBY_BASE_URL https://node-query-api-ruby.xinminlabs.com
-ENV REACT_APP_JAVASCRIPT_BASE_URL https://node-query-api-javascript.xinminlabs.com
+ENV REACT_APP_RUBY_BASE_URL https://node-playground-api-ruby.xinminlabs.com
+ENV REACT_APP_JAVASCRIPT_BASE_URL https://node-playground-api-javascript.xinminlabs.com
 ENV GENERATE_SOURCEMAP false
 RUN npm run build
 

@@ -9,6 +9,9 @@ interface Examples {
   };
 }
 
+export const QUERY_TAB = "query";
+export const MUTATION_TAB = "mutation";
+
 export const LANGUAGES = ["ruby", "typescript"];
 export const REQUEST_BASE_URL: { [language: string]: string } = {
   ruby:

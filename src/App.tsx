@@ -7,7 +7,7 @@ import { Footer } from "./Footer";
 import { AstOutput } from "./AstOutput";
 import { SourceCodeInput } from "./SourceCodeInput";
 import { NodeQueryInput } from "./NodeQueryInput";
-import { REQUEST_BASE_URL, DEFAULT_EXAMPLE, EXAMPLES } from "./constants";
+import { QUERY_TAB, REQUEST_BASE_URL, DEFAULT_EXAMPLE, EXAMPLES } from "./constants";
 
 const requestUrl = (language: string, action: string): string => {
   return [REQUEST_BASE_URL[language], action].join("/");
@@ -24,6 +24,12 @@ function App() {
   );
   const [astNode, setAstNode] = useState<Node>();
   const [ranges, setRanges] = useState<Range[]>([]);
+  const [activeTab, setActiveTab] = useState<string>(QUERY_TAB);
+
+  const handleTabChanged = useCallback(
+    (tab: string) => { setActiveTab(tab); },
+    []
+  );
 
   const handleExampleChanged = useCallback(
     (example: string) => {
@@ -100,6 +106,8 @@ function App() {
   return (
     <>
       <Header
+        activeTab={activeTab}
+        handleTabChanged={handleTabChanged}
         language={language}
         example={example}
         examples={Object.keys(EXAMPLES[language])}

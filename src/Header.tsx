@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import { LANGUAGES } from "./constants";
+import React from "react";
+import { LANGUAGES, MUTATION_TAB, QUERY_TAB } from "./constants";
 
 interface HeaderProps {
+  activeTab: string;
+  handleTabChanged: (tab: string) => void;
   language: string;
   example: string;
   examples: Array<string>;
@@ -9,12 +11,20 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({
+  activeTab,
   language,
   example,
   examples,
+  handleTabChanged,
   handleExampleChanged,
 }) => {
-  const [activeTab, setActiveTab] = useState<string>("query");
+  const queryTabClicked = () => {
+    handleTabChanged(QUERY_TAB)
+  };
+
+  const mutationTabClicked = () => {
+    handleTabChanged(MUTATION_TAB)
+  }
 
   const handleLanguageChange = (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -28,28 +38,20 @@ export const Header: React.FC<HeaderProps> = ({
     handleExampleChanged(example);
   };
 
-  const queryClicked = () => {
-    setActiveTab('query');
-  };
-
-  const mutationClicked = () => {
-    setActiveTab('mutation');
-  };
-
   return (
     <nav className="bg-neutral-800 text-white shadow">
       <div className="px-5 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div>
-            {activeTab === 'query' ? (
+            {activeTab === QUERY_TAB ? (
               <span className="text-lg">Node Query</span>
             ) : (
-              <button onClick={queryClicked}>Node Query</button>
+              <button onClick={queryTabClicked}>Node Query</button>
             )}
-            {activeTab === 'mutation' ? (
+            {activeTab === MUTATION_TAB ? (
               <span className="ml-4 text-lg">Node Mutation</span>
             ) : (
-              <button className="ml-4" onClick={mutationClicked}>Node Mutation</button>
+              <button className="ml-4" onClick={mutationTabClicked}>Node Mutation</button>
             )}
           </div>
           <div>

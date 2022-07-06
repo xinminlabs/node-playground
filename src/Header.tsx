@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { LANGUAGES } from "./constants";
 
 interface HeaderProps {
@@ -14,7 +14,7 @@ export const Header: React.FC<HeaderProps> = ({
   examples,
   handleExampleChanged,
 }) => {
-  const homeUrl = `https://github.com/xinminlabs/node-query-javascript`;
+  const [activeTab, setActiveTab] = useState<string>("query");
 
   const handleLanguageChange = (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -28,18 +28,30 @@ export const Header: React.FC<HeaderProps> = ({
     handleExampleChanged(example);
   };
 
+  const queryClicked = () => {
+    setActiveTab('query');
+  };
+
+  const mutationClicked = () => {
+    setActiveTab('mutation');
+  };
+
   return (
     <nav className="bg-neutral-800 text-white shadow">
       <div className="px-5 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <a
-            className="flex items-center"
-            href={homeUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span>Github</span>
-          </a>
+          <div>
+            {activeTab === 'query' ? (
+              <span className="text-lg">Node Query</span>
+            ) : (
+              <button onClick={queryClicked}>Node Query</button>
+            )}
+            {activeTab === 'mutation' ? (
+              <span className="ml-4 text-lg">Node Mutation</span>
+            ) : (
+              <button className="ml-4" onClick={mutationClicked}>Node Mutation</button>
+            )}
+          </div>
           <div>
             <span>Languages:&nbsp;&nbsp;</span>
             <select

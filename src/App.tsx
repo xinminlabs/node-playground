@@ -7,6 +7,8 @@ import { Footer } from "./Footer";
 import { AstOutput } from "./AstOutput";
 import { SourceCodeInput } from "./SourceCodeInput";
 import { NodeQueryInput } from "./NodeQueryInput";
+import { NodeMutationInput } from "./NodeMutationInput";
+import { SourceCodeOutput } from "./SourceCodeOutput";
 import { QUERY_TAB, REQUEST_BASE_URL, DEFAULT_EXAMPLE, EXAMPLES } from "./constants";
 
 const requestUrl = (language: string, action: string): string => {
@@ -22,6 +24,8 @@ function App() {
   const [nql, setNql] = useState<string>(
     EXAMPLES[language][example].nql
   );
+  const [mutationCode, setMutationCode] = useState<string>('');
+  const [sourceCodeOutput, setSourceCodeOutput] = useState<string>('');
   const [astNode, setAstNode] = useState<Node>();
   const [ranges, setRanges] = useState<Range[]>([]);
   const [activeTab, setActiveTab] = useState<string>(QUERY_TAB);
@@ -97,11 +101,35 @@ function App() {
     });
   }, [language, sourceCode, nql]);
 
+  const mutateCode = useCallback((path) => {
+    if (sourceCode.length === 0 || nql.length === 0 || mutationCode.length === 0) {
+      return;
+    }
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        source_code: sourceCode,
+        nql,
+        path,
+        mutation_code: mutationCode,
+      })
+    }
+    const url = requestUrl(language, "mutate-code");
+    fetch(url, requestOptions).then((response) => {
+      response.json().then((data) => {
+        setSourceCodeOutput(data.new_source);
+      });
+    });
+  }, [sourceCode, nql, mutationCode]);
+
   useEffect(() => {
     const path = getFilePath();
     generateAst(path);
     parseNql(path);
-  }, [example, sourceCode, nql]);
+    mutateCode(path);
+  }, [example, sourceCode, mutationCode, nql]);
 
   return (
     <>
@@ -128,9 +156,23 @@ function App() {
             setCode={setNql}
           />
         </div>
-        <div className="w-1/2 px-4">
-          <AstOutput language={language} node={astNode} />
-        </div>
+        {activeTab === QUERY_TAB ? (
+          <div className="w-1/2 px-4">
+            <AstOutput language={language} node={astNode} />
+          </div>
+        ) : (
+          <div className="w-1/2 flex flex-col px-4">
+            <div className="font-bold flex items-center">Node Mutation API:</div>
+            <NodeMutationInput
+              code={mutationCode}
+              setCode={setMutationCode}
+            />
+            <div className="font-bold flex items-center">Output Source Code:</div>
+            <SourceCodeOutput
+              code={sourceCodeOutput}
+            />
+          </div>
+        )}
       </div>
       <Footer />
     </>

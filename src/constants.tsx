@@ -329,23 +329,27 @@ export const EXAMPLES: Examples = {
     },
   },
 };
-export const MUTATION_APIS: MutationApis = {
+export const MUTATION_EXAMPLES: MutationApis = {
   typescript: {
-    append: 'append(node, "foobar")',
+    append: 'append(node, "Foobar")',
     delete: 'delete(node, "name")',
-    insert: 'insert(node, "foobar", { at: "end" })',
-    prepend: 'prepend(ndoe, "foobar")',
+    insert: 'insert(node, "Foobar", { at: "end" })',
+    prepend: 'prepend(ndoe, "Foobar")',
     remove: 'remove(node)',
-    replace: 'replace(node, "name", { with: "foobar" })',
-    replaceWith: 'replaceWith(node, "foobar")',
+    replace: 'replace(node, "name", { with: "Foobar" })',
+    replaceWith: 'replaceWith(node, "Foobar")',
   },
   ruby: {
-    append: 'append(node, "foobar")',
+    append: 'append(node, "Foobar")',
     delete: 'delete(node, "name")',
-    insert: 'insert(node, "foobar", at: "beginning")',
-    prepend: 'prepend(node, "foobar")',
+    insert: 'insert(node, "Foobar", at: "beginning")',
+    prepend: 'prepend(node, "Foobar")',
     remove: 'remove(node)',
-    replace: 'replace(node, "name", with: "foobar")',
-    replace_with: 'replace_with(node, "foobar")',
+    replace: 'replace(node, "name", with: "Foobar")',
+    replace_with: 'replace_with(node, "Foobar")',
   },
 };
+export const DEFAULT_MUTATION_EXAMPLE = {
+  typescript: 'remove',
+  ruby: 'remove,'
+}

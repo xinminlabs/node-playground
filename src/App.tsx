@@ -9,7 +9,7 @@ import { SourceCodeInput } from "./SourceCodeInput";
 import { NodeQueryInput } from "./NodeQueryInput";
 import { NodeMutationInput } from "./NodeMutationInput";
 import { SourceCodeOutput } from "./SourceCodeOutput";
-import { QUERY_TAB, REQUEST_BASE_URL, DEFAULT_EXAMPLE, EXAMPLES, MUTATION_APIS } from "./constants";
+import { QUERY_TAB, REQUEST_BASE_URL, DEFAULT_EXAMPLE, EXAMPLES, MUTATION_EXAMPLES, DEFAULT_MUTATION_EXAMPLE } from "./constants";
 
 const requestUrl = (language: string, action: string): string => {
   return [REQUEST_BASE_URL[language], action].join("/");
@@ -18,6 +18,7 @@ const requestUrl = (language: string, action: string): string => {
 function App() {
   const language = window.location.pathname === "/ruby" ? "ruby" : "typescript";
   const [example, setExample] = useState<string>(DEFAULT_EXAMPLE[language]);
+  const [mutationExample, setMutationExample] = useState<string>(DEFAULT_MUTATION_EXAMPLE[language]);
   const [sourceCode, setSourceCode] = useState<string>(
     EXAMPLES[language][example].sourceCode
   );
@@ -40,6 +41,13 @@ function App() {
       setSourceCode(EXAMPLES[language][example].sourceCode);
       setNql(EXAMPLES[language][example].nql);
       setExample(example);
+    },
+    [language]
+  );
+
+  const handleMutationExampleChanged = useCallback(
+    (mutationExample: string) => {
+      setMutationExample(mutationExample);
     },
     [language]
   );
@@ -131,6 +139,10 @@ function App() {
     mutateCode(path);
   }, [example, sourceCode, mutationCode, nql]);
 
+  useEffect(() => {
+    setMutationCode(MUTATION_EXAMPLES[language][mutationExample]);
+  }, [mutationExample]);
+
   return (
     <>
       <Header
@@ -161,7 +173,9 @@ function App() {
         ) : (
           <div className="w-1/2 flex flex-col px-4">
             <NodeMutationInput
-              examples={Object.keys(MUTATION_APIS[language])}
+              examples={Object.keys(MUTATION_EXAMPLES[language])}
+              example={mutationExample}
+              handleExampleChanged={handleMutationExampleChanged}
               code={mutationCode}
               setCode={setMutationCode}
             />

@@ -35,11 +35,16 @@ export const NodeQueryInput: React.FC<NodeQueryInputProps> = ({
     return () => clearTimeout(timeoutId);
   }, [value]);
 
-  return <MonacoEditor
-    language="text"
-    onChange={onChange}
-    options={options}
-    theme="vs-dark"
-    value={value}
-  />
+  return (
+    <>
+      <div className="font-bold flex items-center my-2">Node Query Language:</div>
+      <MonacoEditor
+        language="text"
+        onChange={onChange}
+        options={options}
+        theme="vs-dark"
+        value={value}
+      />
+    </>
+  )
 };

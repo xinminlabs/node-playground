@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import MonacoEditor from 'react-monaco-editor';
 
 interface NodeMutationInputProps {
+  examples: string[];
   code: string;
   setCode: (code: string) => void;
 }
@@ -18,6 +19,7 @@ const options = {
 };
 
 export const NodeMutationInput: React.FC<NodeMutationInputProps> = ({
+  examples,
   code,
   setCode,
 }) => {

@@ -9,6 +9,12 @@ interface Examples {
   };
 }
 
+interface MutationApis {
+  [language: string]: {
+    [name: string]: string;
+  };
+}
+
 export const QUERY_TAB = "query";
 export const MUTATION_TAB = "mutation";
 
@@ -321,5 +327,25 @@ export const EXAMPLES: Examples = {
       sourceCode: SOURCES["ruby"],
       nql: ".send[message=foo], .send[message=bar]",
     },
+  },
+};
+export const MUTATION_APIS: MutationApis = {
+  typescript: {
+    append: 'append(node, "foobar")',
+    delete: 'delete(node, "name")',
+    insert: 'insert(node, "foobar", { at: "end" })',
+    prepend: 'prepend(ndoe, "foobar")',
+    remove: 'remove(node)',
+    replace: 'replace(node, "name", { with: "foobar" })',
+    replaceWith: 'replaceWith(node, "foobar")',
+  },
+  ruby: {
+    append: 'append(node, "foobar")',
+    delete: 'delete(node, "name")',
+    insert: 'insert(node, "foobar", at: "beginning")',
+    prepend: 'prepend(node, "foobar")',
+    remove: 'remove(node)',
+    replace: 'replace(node, "name", with: "foobar")',
+    replace_with: 'replace_with(node, "foobar")',
   },
 };

@@ -9,7 +9,7 @@ import { SourceCodeInput } from "./SourceCodeInput";
 import { NodeQueryInput } from "./NodeQueryInput";
 import { NodeMutationInput } from "./NodeMutationInput";
 import { SourceCodeOutput } from "./SourceCodeOutput";
-import { QUERY_TAB, REQUEST_BASE_URL, DEFAULT_EXAMPLE, EXAMPLES } from "./constants";
+import { QUERY_TAB, REQUEST_BASE_URL, DEFAULT_EXAMPLE, EXAMPLES, MUTATION_APIS } from "./constants";
 
 const requestUrl = (language: string, action: string): string => {
   return [REQUEST_BASE_URL[language], action].join("/");
@@ -162,8 +162,8 @@ function App() {
           </div>
         ) : (
           <div className="w-1/2 flex flex-col px-4">
-            <div className="font-bold flex items-center">Node Mutation API:</div>
             <NodeMutationInput
+              examples={Object.keys(MUTATION_APIS[language])}
               code={mutationCode}
               setCode={setMutationCode}
             />

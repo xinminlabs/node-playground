@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import MonacoEditor, { monaco } from 'react-monaco-editor';
+import MonacoEditor, { monaco } from "react-monaco-editor";
 
 import type { Range } from "./types";
 
 interface SourceCodeInputProps {
   code: string;
   language: string;
-  ranges: Range[],
+  ranges: Range[];
   setCode: (code: string) => void;
 }
 
@@ -31,13 +31,16 @@ export const SourceCodeInput: React.FC<SourceCodeInputProps> = ({
   ranges,
   setCode,
 }) => {
-  const [value, setValue] = useState<string>(code)
+  const [value, setValue] = useState<string>(code);
   const [decorationIds, setDecorationIds] = useState<string[]>([]);
 
   const onChange = (val: string) => {
     setValue(val);
-  }
-  const editorDidMount = (editor: monaco.editor.IStandaloneCodeEditor, monaco: Monaco) => {
+  };
+  const editorDidMount = (
+    editor: monaco.editor.IStandaloneCodeEditor,
+    monaco: Monaco
+  ) => {
     editorRef = editor;
     monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
       noSemanticValidation: true,
@@ -56,21 +59,27 @@ export const SourceCodeInput: React.FC<SourceCodeInputProps> = ({
   }, [value]);
 
   useEffect(() => {
-    if (!editorRef || (!ranges || ranges.length === 0)) {
+    if (!editorRef || !ranges || ranges.length === 0) {
       return;
     }
 
     const ids = editorRef.deltaDecorations(
       decorationIds,
       ranges.map((range) => ({
-        range: new monaco.Range(range.start.line, range.start.column, range.end.line, range.end.column),
-        options: { inlineClassName: 'bg-cyan-800' }
+        range: new monaco.Range(
+          range.start.line,
+          range.start.column,
+          range.end.line,
+          range.end.column
+        ),
+        options: { inlineClassName: "bg-cyan-800" },
       }))
     );
     setDecorationIds(ids);
-    return () => { editorRef.deltaDecorations(ids, []) };
-  }, [ranges])
-
+    return () => {
+      editorRef.deltaDecorations(ids, []);
+    };
+  }, [ranges]);
 
   return (
     <>
@@ -84,5 +93,5 @@ export const SourceCodeInput: React.FC<SourceCodeInputProps> = ({
         value={value}
       />
     </>
-  )
+  );
 };

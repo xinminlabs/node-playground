@@ -19,12 +19,12 @@ export const Header: React.FC<HeaderProps> = ({
   handleExampleChanged,
 }) => {
   const queryTabClicked = () => {
-    handleTabChanged(QUERY_TAB)
+    handleTabChanged(QUERY_TAB);
   };
 
   const mutationTabClicked = () => {
-    handleTabChanged(MUTATION_TAB)
-  }
+    handleTabChanged(MUTATION_TAB);
+  };
 
   const handleLanguageChange = (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -51,7 +51,9 @@ export const Header: React.FC<HeaderProps> = ({
             {activeTab === MUTATION_TAB ? (
               <span className="ml-4 text-lg font-bold">Node Mutation</span>
             ) : (
-              <button className="ml-4" onClick={mutationTabClicked}>Node Mutation</button>
+              <button className="ml-4" onClick={mutationTabClicked}>
+                Node Mutation
+              </button>
             )}
           </div>
           <div>

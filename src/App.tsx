@@ -143,14 +143,12 @@ function App() {
       />
       <div className="flex mt-4">
         <div className="w-1/2 flex flex-col px-4">
-          <div className="font-bold flex items-center">Source Code:</div>
           <SourceCodeInput
             code={sourceCode}
             language={language}
             ranges={ranges}
             setCode={setSourceCode}
           />
-          <div className="font-bold flex items-center">Node Query Language:</div>
           <NodeQueryInput
             code={nql}
             setCode={setNql}
@@ -167,7 +165,6 @@ function App() {
               code={mutationCode}
               setCode={setMutationCode}
             />
-            <div className="font-bold flex items-center">Output Source Code:</div>
             <SourceCodeOutput
               code={sourceCodeOutput}
             />

@@ -44,12 +44,12 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center justify-between h-16">
           <div>
             {activeTab === QUERY_TAB ? (
-              <span className="text-lg">Node Query</span>
+              <span className="text-lg font-bold">Node Query</span>
             ) : (
               <button onClick={queryTabClicked}>Node Query</button>
             )}
             {activeTab === MUTATION_TAB ? (
-              <span className="ml-4 text-lg">Node Mutation</span>
+              <span className="ml-4 text-lg font-bold">Node Mutation</span>
             ) : (
               <button className="ml-4" onClick={mutationTabClicked}>Node Mutation</button>
             )}

@@ -20,10 +20,15 @@ const options = {
 export const SourceCodeOutput: React.FC<SourceCodeOutputProps> = ({
   code
 }) => {
-  return <MonacoEditor
-    language="text"
-    options={options}
-    theme="vs-dark"
-    value={code}
-  />
+  return (
+    <>
+      <div className="font-bold flex items-center my-2">Output Source Code:</div>
+      <MonacoEditor
+        language="text"
+        options={options}
+        theme="vs-dark"
+        value={code}
+      />
+    </>
+  )
 };

@@ -68,7 +68,7 @@ export const AstOutput: React.FC<AstOutputProps> = ({ language, node }) => {
   const src = node ? getRootObject(language, node) : {};
   return (
     <>
-      <div className="font-bold flex items-center">AST Node:</div>
+      <div className="font-bold flex items-center my-2">AST Node:</div>
       <ReactJson
         src={src}
         theme="twilight"

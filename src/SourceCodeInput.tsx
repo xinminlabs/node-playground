@@ -72,12 +72,17 @@ export const SourceCodeInput: React.FC<SourceCodeInputProps> = ({
   }, [ranges])
 
 
-  return <MonacoEditor
-    editorDidMount={editorDidMount}
-    language={language}
-    onChange={onChange}
-    options={options}
-    theme="vs-dark"
-    value={value}
-  />
+  return (
+    <>
+      <div className="font-bold flex items-center my-2">Source Code:</div>
+      <MonacoEditor
+        editorDidMount={editorDidMount}
+        language={language}
+        onChange={onChange}
+        options={options}
+        theme="vs-dark"
+        value={value}
+      />
+    </>
+  )
 };

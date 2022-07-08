@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import MonacoEditor from 'react-monaco-editor';
+import MonacoEditor from "react-monaco-editor";
 
 interface NodeMutationInputProps {
   examples: string[];
@@ -27,13 +27,13 @@ export const NodeMutationInput: React.FC<NodeMutationInputProps> = ({
   code,
   setCode,
 }) => {
-  const [value, setValue] = useState<string>(code)
+  const [value, setValue] = useState<string>(code);
   const onChange = (val: string) => {
     setValue(val);
-  }
+  };
   const handleExampleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     handleExampleChanged(event.target.value);
-  }
+  };
 
   useEffect(() => {
     setValue(code);
@@ -53,7 +53,9 @@ export const NodeMutationInput: React.FC<NodeMutationInputProps> = ({
           onChange={handleExampleChange}
           value={example}
         >
-          {examples.map(example => <option key={example}>{example}</option>)}
+          {examples.map((example) => (
+            <option key={example}>{example}</option>
+          ))}
         </select>
       </div>
       <MonacoEditor
@@ -64,5 +66,5 @@ export const NodeMutationInput: React.FC<NodeMutationInputProps> = ({
         value={value}
       />
     </>
-  )
+  );
 };

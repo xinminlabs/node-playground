@@ -1,9 +1,9 @@
 export type Position = {
-  line: number,
-  column: number
-}
+  line: number;
+  column: number;
+};
 
 export type Range = {
-  start: Position,
-  end: Position
+  start: Position;
+  end: Position;
 };

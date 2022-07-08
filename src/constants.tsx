@@ -5,7 +5,7 @@ interface Examples {
     [name: string]: {
       sourceCode: string;
       nql: string;
-    }
+    };
   };
 }
 
@@ -20,8 +20,7 @@ export const MUTATION_TAB = "mutation";
 
 export const LANGUAGES = ["ruby", "typescript"];
 export const REQUEST_BASE_URL: { [language: string]: string } = {
-  ruby:
-    process.env.REACT_APP_RUBY_BASE_URL || "http://localhost:9292",
+  ruby: process.env.REACT_APP_RUBY_BASE_URL || "http://localhost:9292",
   typescript:
     process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:3000",
 };
@@ -89,7 +88,7 @@ export const EXAMPLES: Examples = {
       sourceCode: SOURCES["typescript"],
       nql: ".ClassDeclaration",
     },
-    "attributes": {
+    attributes: {
       sourceCode: SOURCES["typescript"],
       nql: ".NewExpression[expression=UserAccount]",
     },
@@ -99,7 +98,7 @@ export const EXAMPLES: Examples = {
     },
     "nested attribute": {
       sourceCode: SOURCES["typescript"],
-      nql: ".NewExpression[expression.escapedText=UserAccount]"
+      nql: ".NewExpression[expression.escapedText=UserAccount]",
     },
     "evaluated value": {
       sourceCode: SOURCES["typescript"],
@@ -109,7 +108,7 @@ export const EXAMPLES: Examples = {
       sourceCode: SOURCES["typescript"],
       nql: ".VariableDeclaration[initializer=.NewExpression[expression=UserAccount]]",
     },
-    "property": {
+    property: {
       sourceCode: SOURCES["typescript"],
       nql: ".NewExpression[arguments.length=2]",
     },
@@ -211,7 +210,7 @@ export const EXAMPLES: Examples = {
       sourceCode: SOURCES["ruby"],
       nql: ".def",
     },
-    "attributes": {
+    attributes: {
       sourceCode: SOURCES["ruby"],
       nql: ".class[name=Synvert]",
     },
@@ -231,7 +230,7 @@ export const EXAMPLES: Examples = {
       sourceCode: SOURCES["ruby"],
       nql: ".send[receiver=.const[name=FactoryBot]]",
     },
-    "property": {
+    property: {
       sourceCode: SOURCES["ruby"],
       nql: ".def[arguments.size=2]",
     },
@@ -335,7 +334,7 @@ export const MUTATION_EXAMPLES: MutationApis = {
     delete: 'delete(node, "name")',
     insert: 'insert(node, "Foobar", { at: "end" })',
     prepend: 'prepend(ndoe, "Foobar")',
-    remove: 'remove(node)',
+    remove: "remove(node)",
     replace: 'replace(node, "name", { with: "Foobar" })',
     replaceWith: 'replaceWith(node, "Foobar")',
   },
@@ -344,12 +343,12 @@ export const MUTATION_EXAMPLES: MutationApis = {
     delete: 'delete(node, "name")',
     insert: 'insert(node, "Foobar", at: "beginning")',
     prepend: 'prepend(node, "Foobar")',
-    remove: 'remove(node)',
+    remove: "remove(node)",
     replace: 'replace(node, "name", with: "Foobar")',
     replace_with: 'replace_with(node, "Foobar")',
   },
 };
 export const DEFAULT_MUTATION_EXAMPLE = {
-  typescript: 'remove',
-  ruby: 'remove,'
-}
+  typescript: "remove",
+  ruby: "remove,",
+};

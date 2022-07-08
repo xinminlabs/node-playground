@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import MonacoEditor from 'react-monaco-editor';
+import MonacoEditor from "react-monaco-editor";
 
 interface NodeQueryInputProps {
   code: string;
@@ -21,10 +21,10 @@ export const NodeQueryInput: React.FC<NodeQueryInputProps> = ({
   code,
   setCode,
 }) => {
-  const [value, setValue] = useState<string>(code)
+  const [value, setValue] = useState<string>(code);
   const onChange = (val: string) => {
     setValue(val);
-  }
+  };
 
   useEffect(() => {
     setValue(code);
@@ -37,7 +37,9 @@ export const NodeQueryInput: React.FC<NodeQueryInputProps> = ({
 
   return (
     <>
-      <div className="font-bold flex items-center my-2">Node Query Language:</div>
+      <div className="font-bold flex items-center my-2">
+        Node Query Language:
+      </div>
       <MonacoEditor
         language="text"
         onChange={onChange}
@@ -46,5 +48,5 @@ export const NodeQueryInput: React.FC<NodeQueryInputProps> = ({
         value={value}
       />
     </>
-  )
+  );
 };

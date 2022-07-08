@@ -5,12 +5,7 @@ interface AstOutputProps {
   node?: Node;
 }
 
-const ROOT_KEYS = [
-  "end",
-  "endOfFileToken",
-  "pos",
-  "statements",
-]
+const ROOT_KEYS = ["end", "endOfFileToken", "pos", "statements"];
 
 const IGNORE_KEYS = [
   // "decorators",
@@ -28,13 +23,13 @@ const IGNORE_KEYS = [
 ];
 
 const getNewKeyValue = (node: Node, key: string): [key: string, value: any] => {
-  const value = (node as any)[key]
+  const value = (node as any)[key];
   if (typeof value === "object") {
     return [key, getNodeObject(value)];
   } else {
     return [key, value];
   }
-}
+};
 
 const getRootObject = (language: string, node: Node): any => {
   if (language !== "typescript") {
@@ -48,7 +43,7 @@ const getRootObject = (language: string, node: Node): any => {
     }
   });
   return result;
-}
+};
 
 const getNodeObject = (node: Node): any => {
   const result: { [index: string]: any } = {};
@@ -62,7 +57,7 @@ const getNodeObject = (node: Node): any => {
     }
   });
   return result;
-}
+};
 
 export const AstOutput: React.FC<AstOutputProps> = ({ language, node }) => {
   const src = node ? getRootObject(language, node) : {};

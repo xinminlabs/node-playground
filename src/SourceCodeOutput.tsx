@@ -1,5 +1,5 @@
 import React from "react";
-import MonacoEditor from 'react-monaco-editor';
+import MonacoEditor from "react-monaco-editor";
 
 interface SourceCodeOutputProps {
   code: string;
@@ -17,12 +17,12 @@ const options = {
   suggestOnTriggerCharacters: false,
 };
 
-export const SourceCodeOutput: React.FC<SourceCodeOutputProps> = ({
-  code
-}) => {
+export const SourceCodeOutput: React.FC<SourceCodeOutputProps> = ({ code }) => {
   return (
     <>
-      <div className="font-bold flex items-center my-2">Output Source Code:</div>
+      <div className="font-bold flex items-center my-2">
+        Output Source Code:
+      </div>
       <MonacoEditor
         language="text"
         options={options}
@@ -30,5 +30,5 @@ export const SourceCodeOutput: React.FC<SourceCodeOutputProps> = ({
         value={code}
       />
     </>
-  )
+  );
 };

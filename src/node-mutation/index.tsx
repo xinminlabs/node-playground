@@ -60,7 +60,7 @@ function NodeMutation() {
       setAlert("");
       setRanges(data.ranges);
     }
-  }, [language, sourceCode, nql, extension]);
+  }, [sourceCode, nql, extension]);
 
   const mutateCode = useCallback(async () => {
     if (

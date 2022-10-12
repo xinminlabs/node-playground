@@ -57,7 +57,7 @@ function NodeQuery() {
         setAstNode(data.node);
       }
     }
-  }, [language, extension, sourceCode]);
+  }, [extension, sourceCode]);
 
   const parseNql = useCallback(async () => {
     if (sourceCode.length === 0 || nql.length === 0) {
@@ -83,7 +83,7 @@ function NodeQuery() {
       setAlert("");
       setRanges(data.ranges);
     }
-  }, [language, sourceCode, nql]);
+  }, [extension, sourceCode, nql]);
 
   useEffect(() => {
     generateAst();

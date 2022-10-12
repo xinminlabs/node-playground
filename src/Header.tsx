@@ -6,6 +6,7 @@ import NavTab from "./shared/NavTab";
 
 const Header: React.FC  = () => {
   const { language } = useParams() as { language: string };
+  const synvertPlaygroundUrl = `https://playground.synvert.net/${language}`;
 
   return (
     <nav className="bg-neutral-800 text-white shadow">
@@ -21,6 +22,7 @@ const Header: React.FC  = () => {
               text="Node Mutation"
             />
           </div>
+          <a href={synvertPlaygroundUrl} target="_blank" rel="noreferrer">Synvert Playground</a>
           <div className="flex">
             <LanguageSelect />
             <ExampleSelect />

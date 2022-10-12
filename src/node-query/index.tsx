@@ -12,7 +12,16 @@ import ExtensionSelect from "../shared/ExtensionSelect";
 
 function NodeQuery() {
   const { language } = useParams() as { language: string };
-  const { setAlert, extension, sourceCode, setSourceCode, nql, setNql, astNode, setAstNode } = useAppContext();
+  const {
+    setAlert,
+    extension,
+    sourceCode,
+    setSourceCode,
+    nql,
+    setNql,
+    astNode,
+    setAstNode,
+  } = useAppContext();
   const [ranges, setRanges] = useState<Range[]>([]);
 
   const generateAst = useCallback(async () => {

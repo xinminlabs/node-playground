@@ -11,6 +11,14 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
+        <Route
+          path="/javascript/node-query"
+          element={<Navigate to="/typescript/node-query" replace />}
+        />
+        <Route
+          path="/javascript/node-mutation"
+          element={<Navigate to="/typescript/node-mutation" replace />}
+        />
         <Route path="/:language" element={<App />}>
           <Route path="node-query" element={<NodeQuery />} />
           <Route path="node-mutation" element={<NodeMutation />} />

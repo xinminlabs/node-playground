@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import useAppContext from "./shared/useAppContext";
 import { EXAMPLES } from "./constants";
 
-const ExampleSelect: React.FC  = () => {
+const ExampleSelect: React.FC = () => {
   const { language } = useParams() as { language: string };
   const examples = Object.keys(EXAMPLES[language]);
   const { example, setExample } = useAppContext();

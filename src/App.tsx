@@ -9,7 +9,9 @@ import { CODE_EXTENSIONS, DEFAULT_EXAMPLE, EXAMPLES } from "./constants";
 function App() {
   const { language } = useParams() as { language: string };
   const [alert, setAlert] = useState("");
-  const [extension, setExtension] = useState(Object.keys(CODE_EXTENSIONS[language])[0]);
+  const [extension, setExtension] = useState(
+    Object.keys(CODE_EXTENSIONS[language])[0]
+  );
   const [example, setExample] = useState(DEFAULT_EXAMPLE[language]);
   const [sourceCode, setSourceCode] = useState("");
   const [nql, setNql] = useState("");
@@ -43,7 +45,7 @@ function App() {
         mutationCode,
         setMutationCode,
         outputCode,
-        setOutputCode
+        setOutputCode,
       }}
     >
       <Header />

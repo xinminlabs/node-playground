@@ -4,7 +4,7 @@ import LanguageSelect from "./LanguageSelect";
 import ExampleSelect from "./ExampleSelect";
 import NavTab from "./shared/NavTab";
 
-const Header: React.FC  = () => {
+const Header: React.FC = () => {
   const { language } = useParams() as { language: string };
   const synvertPlaygroundUrl = `https://playground.synvert.net/${language}`;
 
@@ -13,16 +13,12 @@ const Header: React.FC  = () => {
       <div className="px-5 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex justify-start">
-            <NavTab
-              link={`/${language}/node-query`}
-              text="Node Query"
-            />
-            <NavTab
-              link={`/${language}/node-mutation`}
-              text="Node Mutation"
-            />
+            <NavTab link={`/${language}/node-query`} text="Node Query" />
+            <NavTab link={`/${language}/node-mutation`} text="Node Mutation" />
           </div>
-          <a href={synvertPlaygroundUrl} target="_blank" rel="noreferrer">Synvert Playground</a>
+          <a href={synvertPlaygroundUrl} target="_blank" rel="noreferrer">
+            Synvert Playground
+          </a>
           <div className="flex">
             <LanguageSelect />
             <ExampleSelect />

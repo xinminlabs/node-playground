@@ -9,14 +9,20 @@ import { NodeQueryInput } from "../shared/NodeQueryInput";
 import { NodeMutationInput } from "./NodeMutationInput";
 import { SourceCodeOutput } from "./SourceCodeOutput";
 import { requestUrl } from "../utils";
-import {
-  MUTATION_EXAMPLES,
-  DEFAULT_MUTATION_EXAMPLE,
-} from "../constants";
+import { MUTATION_EXAMPLES, DEFAULT_MUTATION_EXAMPLE } from "../constants";
 
 function NodeMutation() {
   const { language } = useParams() as { language: string };
-  const { setAlert, extension, sourceCode, setSourceCode, nql, setNql, outputCode, setOutputCode } = useAppContext();
+  const {
+    setAlert,
+    extension,
+    sourceCode,
+    setSourceCode,
+    nql,
+    setNql,
+    outputCode,
+    setOutputCode,
+  } = useAppContext();
   const [mutationExample, setMutationExample] = useState<string>(
     DEFAULT_MUTATION_EXAMPLE[language]
   );

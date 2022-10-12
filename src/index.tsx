@@ -1,12 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App";
+import NodeQuery from "./node-query";
+import NodeMutation from "./node-mutation";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/:language" element={<App />}>
+          <Route path="node-query" element={<NodeQuery />} />
+          <Route path="node-mutation" element={<NodeMutation />} />
+        </Route>
+        <Route
+          path="*"
+          element={<Navigate to="/typescript/node-query" replace />}
+        />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

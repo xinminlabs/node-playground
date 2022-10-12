@@ -41,6 +41,7 @@ export const NodeQueryInput: React.FC<NodeQueryInputProps> = ({
         Node Query Language:
       </div>
       <MonacoEditor
+        height="600"
         language="text"
         onChange={onChange}
         options={options}

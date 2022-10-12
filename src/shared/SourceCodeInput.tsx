@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MonacoEditor, { monaco } from "react-monaco-editor";
 
-import type { Range } from "./types";
+import type { Range } from "../types";
 
 interface SourceCodeInputProps {
   code: string;
@@ -85,6 +85,7 @@ export const SourceCodeInput: React.FC<SourceCodeInputProps> = ({
     <>
       <div className="font-bold flex items-center my-2">Source Code:</div>
       <MonacoEditor
+        height="600"
         editorDidMount={editorDidMount}
         language={language}
         onChange={onChange}

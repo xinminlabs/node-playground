@@ -24,6 +24,7 @@ export const SourceCodeOutput: React.FC<SourceCodeOutputProps> = ({ code }) => {
         Output Source Code:
       </div>
       <MonacoEditor
+        height="600"
         language="text"
         options={options}
         theme="vs-dark"

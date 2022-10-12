@@ -1,5 +1,11 @@
 import dedent from "ts-dedent";
 
+interface Extensions {
+  [language: string]: {
+    [name: string]: string;
+  };
+}
+
 interface Examples {
   [language: string]: {
     [name: string]: {
@@ -15,14 +21,25 @@ interface MutationApis {
   };
 }
 
-export const QUERY_TAB = "query";
-export const MUTATION_TAB = "mutation";
-
 export const LANGUAGES = ["ruby", "typescript"];
 export const REQUEST_BASE_URL: { [language: string]: string } = {
   ruby: process.env.REACT_APP_RUBY_BASE_URL || "http://localhost:9292",
   typescript:
     process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:3000",
+};
+export const CODE_EXTENSIONS: Extensions = {
+  typescript: {
+    ts: "Typescript",
+    tsx: "Typescript + JSX",
+  },
+  javascript: {
+    js: "Javascript",
+    jsx: "Javascript + JSX",
+  },
+  ruby: {
+    rb: "Ruby",
+    erb: "Ruby + ERB",
+  },
 };
 export const SOURCES = {
   typescript: dedent`
@@ -348,7 +365,7 @@ export const MUTATION_EXAMPLES: MutationApis = {
     replace_with: 'replace_with(node, "Foobar")',
   },
 };
-export const DEFAULT_MUTATION_EXAMPLE = {
+export const DEFAULT_MUTATION_EXAMPLE: { [language: string]: string } = {
   typescript: "remove",
-  ruby: "remove,",
+  ruby: "remove",
 };

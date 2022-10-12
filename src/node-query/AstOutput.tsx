@@ -68,7 +68,7 @@ export const AstOutput: React.FC<AstOutputProps> = ({ language, node }) => {
         src={src}
         theme="twilight"
         displayDataTypes={false}
-        style={{ width: "100%", height: "824px", overflowY: "scroll" }}
+        style={{ width: "100%", height: "1240px", overflowY: "scroll" }}
       />
     </>
   );

@@ -24,6 +24,18 @@ ReactDOM.render(
           <Route path="node-mutation" element={<NodeMutation />} />
         </Route>
         <Route
+          path="/ruby"
+          element={<Navigate to="/ruby/node-query" replace />}
+        />
+        <Route
+          path="/javascript"
+          element={<Navigate to="/typescript/node-query" replace />}
+        />
+        <Route
+          path="/typescript"
+          element={<Navigate to="/typescript/node-query" replace />}
+        />
+        <Route
           path="*"
           element={<Navigate to="/typescript/node-query" replace />}
         />

@@ -1,4 +1,3 @@
-import { createSourceFile, ScriptTarget } from "typescript";
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -6,7 +5,7 @@ import type { Range } from "../types";
 import AstOutput from "./AstOutput";
 import { SourceCodeInput } from "../shared/SourceCodeInput";
 import { NodeQueryInput } from "../shared/NodeQueryInput";
-import { requestUrl, getFileName, getScriptKind } from "../utils";
+import { requestUrl } from "../utils";
 import useAppContext from "../shared/useAppContext";
 import ExtensionSelect from "../shared/ExtensionSelect";
 
@@ -29,33 +28,20 @@ function NodeQuery() {
       return;
     }
 
-    if (["typescript", "javascript"].includes(language)) {
-      const fileName = getFileName(extension);
-      const scriptKind = getScriptKind(extension);
-      const node = createSourceFile(
-        fileName,
-        sourceCode,
-        ScriptTarget.Latest,
-        false,
-        scriptKind
-      );
-      setAstNode(node);
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code: sourceCode }),
+    };
+    const url = requestUrl(language, "generate-ast");
+    const response = await fetch(url, requestOptions);
+    const data = await response.json();
+    if (data.error) {
+      setAlert(data.error);
+      setAstNode({});
     } else {
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: sourceCode }),
-      };
-      const url = requestUrl(language, "generate-ast");
-      const response = await fetch(url, requestOptions);
-      const data = await response.json();
-      if (data.error) {
-        setAlert(data.error);
-        setAstNode({});
-      } else {
-        setAlert("");
-        setAstNode(data.node);
-      }
+      setAlert("");
+      setAstNode(data.node);
     }
   }, [extension, sourceCode]);
 

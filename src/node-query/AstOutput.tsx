@@ -7,21 +7,34 @@ interface AstOutputProps {
   node?: Node;
 }
 
-const ROOT_KEYS = ["end", "endOfFileToken", "pos", "statements"];
-
 const IGNORE_KEYS = [
+  "amdDependencies",
   // "decorators",
   "flags",
+  "identifierCount",
+  "identifiers",
+  "languageVersion",
+  "languageVariant",
+  "libReferenceDirectives",
   // "locals",
   // "localSymbol",
   "modifierFlagsCache",
   // "modifiers",
   "nextContainer",
+  "nodeCount",
   "originalKeywordKind",
   "parent",
   "parseDiagnostics",
+  "scriptKind",
+  "isDeclarationFile",
+  "hasNoDefaultLib",
+  "bindDiagnostics",
+  "pragmas",
+  "referencedFiles",
   // "symbol",
+  "text",
   "transformFlags",
+  "typeReferenceDirectives",
 ];
 
 const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
@@ -61,10 +74,10 @@ const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
     }
     const result: { [index: string]: any } = {};
     Object.keys(node).forEach((key) => {
-      // if (ROOT_KEYS.includes(key)) {
+      if (!IGNORE_KEYS.includes(key)) {
         const [newKey, value] = getNewKeyValue(node, key);
         result[newKey] = value;
-      // }
+      }
     });
     return result;
   };
@@ -86,7 +99,7 @@ const AstOutput: React.FC<AstOutputProps> = ({ node }) => {
   const src = node ? getRootObject(language, node) : {};
   return (
     <>
-      <div className="font-bold flex items-center my-2">AST Node:</div>
+      <div className="font-boldflex items-center my-2flex items-center my-2">AST Node:</div>
       <ReactJson
         src={src}
         theme="twilight"

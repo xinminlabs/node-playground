@@ -25,7 +25,7 @@ export const LANGUAGES = ["ruby", "typescript"];
 export const REQUEST_BASE_URL: { [language: string]: string } = {
   ruby: process.env.REACT_APP_RUBY_BASE_URL || "http://localhost:9292",
   typescript:
-    process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:3000",
+    process.env.REACT_APP_JAVASCRIPT_BASE_URL || "http://localhost:4000",
 };
 export const CODE_EXTENSIONS: Extensions = {
   typescript: {

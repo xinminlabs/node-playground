@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import type { Range } from "../types";
-import { AstOutput } from "./AstOutput";
+import AstOutput from "./AstOutput";
 import { SourceCodeInput } from "../shared/SourceCodeInput";
 import { NodeQueryInput } from "../shared/NodeQueryInput";
 import { requestUrl, getFileName, getScriptKind } from "../utils";
@@ -104,7 +104,7 @@ function NodeQuery() {
           <NodeQueryInput code={nql} setCode={setNql} />
         </div>
         <div className="w-1/2 px-4">
-          <AstOutput language={language} node={astNode} />
+          <AstOutput node={astNode} />
         </div>
       </div>
     </>
